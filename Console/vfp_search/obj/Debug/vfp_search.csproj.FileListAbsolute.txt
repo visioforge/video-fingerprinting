@@ -1,0 +1,10 @@
+c:\Projects\_Projects\VideoFingerprinting\_SOURCES\DotNet\DEMOS\Console\vfp_search\bin\Debug\vfp_search.exe.config
+c:\Projects\_Projects\VideoFingerprinting\_SOURCES\DotNet\DEMOS\Console\vfp_search\bin\Debug\vfp_search.exe
+c:\Projects\_Projects\VideoFingerprinting\_SOURCES\DotNet\DEMOS\Console\vfp_search\bin\Debug\vfp_search.pdb
+c:\Projects\_Projects\VideoFingerprinting\_SOURCES\DotNet\DEMOS\Console\vfp_search\bin\Debug\VisioForge.VideoFingerPrinting.dll
+c:\Projects\_Projects\VideoFingerprinting\_SOURCES\DotNet\DEMOS\Console\vfp_search\bin\Debug\VisioForge.VideoFingerPrinting.pdb
+c:\Projects\_Projects\VideoFingerprinting\_SOURCES\DotNet\DEMOS\Console\vfp_search\obj\Debug\vfp_search.csprojAssemblyReference.cache
+c:\Projects\_Projects\VideoFingerprinting\_SOURCES\DotNet\DEMOS\Console\vfp_search\obj\Debug\vfp_search.csproj.CoreCompileInputs.cache
+c:\Projects\_Projects\VideoFingerprinting\_SOURCES\DotNet\DEMOS\Console\vfp_search\obj\Debug\vfp_search.csproj.CopyComplete
+c:\Projects\_Projects\VideoFingerprinting\_SOURCES\DotNet\DEMOS\Console\vfp_search\obj\Debug\vfp_search.exe
+c:\Projects\_Projects\VideoFingerprinting\_SOURCES\DotNet\DEMOS\Console\vfp_search\obj\Debug\vfp_search.pdb
