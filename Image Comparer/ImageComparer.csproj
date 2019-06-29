@@ -82,6 +82,7 @@
     <Compile Include="Helper.cs" />
     <Compile Include="ResultsViewModel.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="XmlUtil.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

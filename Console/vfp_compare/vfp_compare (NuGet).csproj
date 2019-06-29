@@ -73,8 +73,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="VisioForge.VideoFingerPrinting, Version=11.1.39.0, Culture=neutral, PublicKeyToken=e8ec2a375cde917e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\VisioForge.DotNet.VideoFingerprinting.TRIAL.11.1.39\lib\net40-client\VisioForge.VideoFingerPrinting.dll</HintPath>
+    <Reference Include="VisioForge.VideoFingerPrinting, Version=11.1.40.0, Culture=neutral, PublicKeyToken=e8ec2a375cde917e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VisioForge.DotNet.VideoFingerprinting.TRIAL.11.1.40\lib\net40-client\VisioForge.VideoFingerPrinting.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

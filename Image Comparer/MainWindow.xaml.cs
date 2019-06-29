@@ -19,7 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ImageComparer.Properties;
-using VisioForge.MediaFramework;
+
 using VisioForge.VideoFingerPrinting;
 
 namespace ImageComparer
