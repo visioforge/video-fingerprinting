@@ -76,8 +76,8 @@
     </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
-    <Reference Include="VisioForge.VideoFingerPrinting, Version=11.1.38.0, Culture=neutral, PublicKeyToken=e8ec2a375cde917e, processorArchitecture=MSIL">
-      <HintPath>..\packages\VisioForge.DotNet.VideoFingerprinting.TRIAL.11.1.38\lib\net40-client\VisioForge.VideoFingerPrinting.dll</HintPath>
+    <Reference Include="VisioForge.VideoFingerPrinting, Version=11.1.39.0, Culture=neutral, PublicKeyToken=e8ec2a375cde917e, processorArchitecture=MSIL">
+      <HintPath>..\packages\VisioForge.DotNet.VideoFingerprinting.TRIAL.11.1.39\lib\net40-client\VisioForge.VideoFingerPrinting.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
