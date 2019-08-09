@@ -4,7 +4,7 @@
 				xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
 				x:Class="VisioForge_MMT.MainWindow"
                 DataContext="{Binding RelativeSource={RelativeSource Self}}"
-				Title="VisioForge Video Fingerprinting SDK - Media Monitoring Tool v10.1.0.0" Height="678.045" Width="1005" Icon="visioforge_main_icon.ico" Loaded="Window_Loaded" Unloaded="Window_Unloaded" Closing="Window_Closing">
+				Title="VisioForge Video Fingerprinting SDK - Media Monitoring Tool" Height="678.045" Width="1005" Icon="visioforge_main_icon.ico" Loaded="Window_Loaded" Unloaded="Window_Unloaded" Closing="Window_Closing">
     <Grid>
        
         <Grid.ColumnDefinitions>

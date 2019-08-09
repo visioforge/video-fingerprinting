@@ -73,8 +73,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="VisioForge.VideoFingerPrinting, Version=11.2.5.0, Culture=neutral, PublicKeyToken=e8ec2a375cde917e, processorArchitecture=MSIL">
-      <HintPath>..\packages\VisioForge.DotNet.VideoFingerprinting.TRIAL.11.2.5\lib\net40-client\VisioForge.VideoFingerPrinting.dll</HintPath>
+    <Reference Include="VisioForge.VideoFingerPrinting, Version=11.2.6.0, Culture=neutral, PublicKeyToken=e8ec2a375cde917e, processorArchitecture=MSIL">
+      <HintPath>..\packages\VisioForge.DotNet.VideoFingerprinting.TRIAL.11.2.6\lib\net40-client\VisioForge.VideoFingerPrinting.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />

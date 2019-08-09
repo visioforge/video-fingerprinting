@@ -15,6 +15,7 @@ namespace VisioForge_MMT
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
+    using System.Threading;
     using System.Windows;
 
     using VisioForge.VideoFingerPrinting;
@@ -23,6 +24,7 @@ namespace VisioForge_MMT
 
     using VisioForge.VideoFingerPrinting.Sources;
     using VisioForge.VideoFingerPrinting.Sources.DirectShow;
+    using VisioForge.VideoFingerPrinting.Sources.MediaInfo;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
