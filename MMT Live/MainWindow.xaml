@@ -42,7 +42,7 @@
                         <TabItem Header="Network source">
                             <Grid Background="Transparent">
                                 <Label Content="URL" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                                <TextBox x:Name="edNetworkSourceURL" HorizontalAlignment="Left" Height="23" Margin="60,13,0,0" TextWrapping="Wrap" Text="http://212.162.177.75/mjpg/video.mjpg" VerticalAlignment="Top" Width="299"/>
+                                <TextBox x:Name="edNetworkSourceURL" HorizontalAlignment="Left" Height="23" Margin="60,13,0,0" TextWrapping="Wrap" Text="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4" VerticalAlignment="Top" Width="299"/>
                                 <ComboBox x:Name="cbNetworkSourceEngine" HorizontalAlignment="Left" Margin="60,50,0,0" VerticalAlignment="Top" Width="110" SelectedIndex="0">
                                     <ComboBoxItem Content="LAV"/>
                                     <ComboBoxItem Content="FFMPEG"/>

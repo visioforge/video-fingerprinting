@@ -49,9 +49,11 @@ namespace VisioForge_MMT
 
         private object _processingLock;
 
-        private SimpleCapture _videoCapture;
+        private readonly SimpleCapture _videoCapture;
 
-        private SimplePlayer _videoPlayer;
+        private readonly SimplePlayer _videoPlayer;
+
+        private bool _stopFlag;
 
         public MainWindow()
         {
@@ -96,6 +98,10 @@ namespace VisioForge_MMT
         {
             if ((string)btStart.Content == "Stop")
             {
+                _stopFlag = true;
+
+                Thread.Sleep(500);
+
                 _videoCapture?.Stop();
                 _videoPlayer?.Stop();
 
@@ -119,6 +125,8 @@ namespace VisioForge_MMT
             }
             else
             {
+                _stopFlag = false;
+
                 btStart.IsEnabled = false;
                 
                 lbStatus.Content = "Step 1: Searching video files";
@@ -156,6 +164,7 @@ namespace VisioForge_MMT
                 {
                     btStart.Content = "Start";
                     lbStatus.Content = string.Empty;
+                    btStart.IsEnabled = true;
 
                     MessageBox.Show("Ads list is empty!");
                     
@@ -237,7 +246,9 @@ namespace VisioForge_MMT
                     //                 Password = edNetworkSourcePassword.Text
                     //             };
                     _videoPlayer.Filename = url;
-                    
+                    _videoPlayer.MaximalSpeedPlayback = false;
+
+
                     switch (cbNetworkSourceEngine.SelectedIndex)
                     {
                         case 0:
@@ -299,7 +310,7 @@ namespace VisioForge_MMT
                 if (!File.Exists(filename))
                 {
                     // Create a file to write to.
-                    using (StreamWriter sw = File.CreateText(filename))
+                    using (var sw = File.CreateText(filename))
                     {
                         sw.WriteLine(xml);
                     }
@@ -457,6 +468,11 @@ namespace VisioForge_MMT
 
         private void NewFrameDelegateMethod(SampleGrabberBufferCBEventArgs e)
         {
+            if (_stopFlag)
+            {
+                return;
+            }
+
             try
             {
                 if (pnScreen == null)
@@ -479,6 +495,12 @@ namespace VisioForge_MMT
                 }
 
                 pnScreen.BeginInit();
+
+                if (pnScreen.Source == null)
+                {
+                    pnScreen.Source = _frameBitmap;
+                }
+
                 int lineStep = (((e.Width * 24) + 31) / 32) * 4;
                 _frameBitmap.WritePixels(new Int32Rect(0, 0, e.Width, e.Height), e.Buffer, (int)e.BufferLen, lineStep);
                 pnScreen.EndInit();
@@ -493,6 +515,11 @@ namespace VisioForge_MMT
         {
             try
             {
+                if (_stopFlag)
+                {
+                    return;
+                }
+
                 Dispatcher.BeginInvoke(new NewFrameDelegate(NewFrameDelegateMethod), e);
                 
                 if (_tempBuffer == IntPtr.Zero)
