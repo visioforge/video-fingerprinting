@@ -8,6 +8,7 @@
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
 
+    using VisioForge.VideoFingerPrinting;
     using VisioForge.VideoFingerPrinting.Sources;
 
     public static class Helper

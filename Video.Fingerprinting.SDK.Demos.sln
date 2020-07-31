@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisioForge DVS", "DVS\DVS.csproj", "{6A1CC026-CAE8-4C24-9431-FCAC02E53707}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVS", "DVS\DVS.csproj", "{6A1CC026-CAE8-4C24-9431-FCAC02E53707}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisioForge MMT", "MMT\MMT.csproj", "{2E6512D7-5DD4-424D-8035-9E6055151F2E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMT", "MMT\MMT.csproj", "{2E6512D7-5DD4-424D-8035-9E6055151F2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisioForge MMT Live", "MMT Live\MMT Live.csproj", "{3035E133-6140-46EF-BAEE-3803EF20DE6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMT Live", "MMT Live\MMT Live.csproj", "{3035E133-6140-46EF-BAEE-3803EF20DE6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vfp_compare", "Console\vfp_compare\vfp_compare.csproj", "{BC3C6DBD-A913-4D60-9960-D01E9B7706AE}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vfp_search", "Console\vfp_search\vfp_search.csproj", "{BC3C6DBD-A913-4D60-9960-D01E9B7706EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageComparer", "Image Comparer\ImageComparer.csproj", "{71B4B524-9080-4F39-B9F5-D9DBD589A115}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vfp_gen_fragments", "Console\vfp_gen_fragments\vfp_gen_fragments.csproj", "{C8BCDF3D-E83F-4F9D-A411-49B22D1E9F76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,14 @@ Global
 		{71B4B524-9080-4F39-B9F5-D9DBD589A115}.Release|Any CPU.Build.0 = Release|Any CPU
 		{71B4B524-9080-4F39-B9F5-D9DBD589A115}.Release|x86.ActiveCfg = Release|x86
 		{71B4B524-9080-4F39-B9F5-D9DBD589A115}.Release|x86.Build.0 = Release|x86
+		{C8BCDF3D-E83F-4F9D-A411-49B22D1E9F76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8BCDF3D-E83F-4F9D-A411-49B22D1E9F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8BCDF3D-E83F-4F9D-A411-49B22D1E9F76}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C8BCDF3D-E83F-4F9D-A411-49B22D1E9F76}.Debug|x86.Build.0 = Debug|Any CPU
+		{C8BCDF3D-E83F-4F9D-A411-49B22D1E9F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8BCDF3D-E83F-4F9D-A411-49B22D1E9F76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8BCDF3D-E83F-4F9D-A411-49B22D1E9F76}.Release|x86.ActiveCfg = Release|Any CPU
+		{C8BCDF3D-E83F-4F9D-A411-49B22D1E9F76}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
