@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace VisioForge_MMT
+namespace VisioForge_MMT_Live
 {
     /// <summary>
     /// Interaction logic for App.xaml

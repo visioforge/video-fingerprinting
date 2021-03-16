@@ -1,4 +1,4 @@
-﻿namespace VisioForge_MMT.Classes
+﻿namespace VisioForge_MMT_Live
 {
     using System;
     using System.IO;

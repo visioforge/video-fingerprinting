@@ -2,7 +2,7 @@
 using System.Threading;
 
 
-namespace VisioForge_MMT
+namespace VisioForge_MMT_Live
 {
     using System;
     using System.Collections.Generic;
@@ -19,8 +19,6 @@ namespace VisioForge_MMT
     using VisioForge.VideoFingerPrinting.Sources;
     using VisioForge.VideoFingerPrinting.Sources.DirectShow;
     using VisioForge.VideoFingerPrinting.Sources.MFP;
-
-    using VisioForge_MMT.Classes;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -190,16 +188,16 @@ namespace VisioForge_MMT
                             source.IgnoredAreas.Add(area);
                         }
 
-                        fp = VFPAnalyzer.GetSearchFingerprintForVideoFile(source, out error);
+                        fp = VFPAnalyzer.GetSearchFingerprintForVideoFile(source, ErrorCallback);
                     }
                     
                     if (fp == null)
                     {
-                        MessageBox.Show("Unable to get fingerpring for video file: " + filename + ". Error: " + error);
+                        MessageBox.Show("Unable to get fingerprint for video file: " + filename + ". Error: " + error);
                     }
                     else
                     {
-                        fp.Save(filename + ".vfsigx", false);
+                        fp.Save(filename + ".vfsigx");
                         _adVFPList.Add(fp);
                     }
 
@@ -214,7 +212,7 @@ namespace VisioForge_MMT
                 else
                 {
                     var maxDuration = _adVFPList.Max((print => print.Duration));
-                    long minfragmentDuration = (((maxDuration + 1000) / 1000) + 1) * 1000;
+                    long minfragmentDuration = ((((long)maxDuration.TotalMilliseconds + 1000) / 1000) + 1) * 1000;
                     _fragmentDuration = minfragmentDuration * 2;
                 }
 
@@ -406,14 +404,13 @@ namespace VisioForge_MMT
 
                     foreach (var ad in _adVFPList)
                     {
-                        List<int> positions;
-                        bool found = VFPAnalyzer.Search(ad, fvp, ad.Duration, (int)slDifference.Value, out positions, true);
+                        var positions= VFPAnalyzer.Search(ad, fvp, ad.Duration, (int)slDifference.Value, true);
 
-                        if (found)
+                        if (positions.Count > 0)
                         {
                             foreach (var pos in positions)
                             {
-                                DateTime tm = fingerprint.StartTime.AddMilliseconds(pos * 1000);
+                                DateTime tm = fingerprint.StartTime.AddMilliseconds(pos.TotalMilliseconds);
 
                                 bool duplicate = false;
                                 foreach (var detectedAd in _results)
@@ -530,7 +527,7 @@ namespace VisioForge_MMT
                 // live
                 if (_searchLiveData == null)
                 {
-                    _searchLiveData = new FingerprintLiveData((int)(_fragmentDuration / 1000), DateTime.Now);
+                    _searchLiveData = new FingerprintLiveData(TimeSpan.FromMilliseconds(_fragmentDuration), DateTime.Now);
                     _fragmentCount++;
                 }
 
@@ -553,7 +550,7 @@ namespace VisioForge_MMT
                         }
                     }
 
-                    VFPSearch.Process(_tempBuffer, e.Width, e.Height, ImageHelper.GetStrideRGB24(e.Width), timestamp, ref _searchLiveData.Data);
+                    VFPSearch.Process(_tempBuffer, e.Width, e.Height, ImageHelper.GetStrideRGB24(e.Width), TimeSpan.FromMilliseconds(timestamp), ref _searchLiveData.Data);
                 }
                 else
                 {
@@ -572,14 +569,14 @@ namespace VisioForge_MMT
 
                 if (_searchLiveOverlapData == null)
                 {
-                    _searchLiveOverlapData = new FingerprintLiveData((int)(_fragmentDuration / 1000), DateTime.Now);
+                    _searchLiveOverlapData = new FingerprintLiveData(TimeSpan.FromSeconds(_fragmentDuration), DateTime.Now);
                     _overlapFragmentCount++;
                 }
 
                 if (timestamp < _fragmentDuration * _overlapFragmentCount + _fragmentDuration / 2)
                 {
                     ImageHelper.CopyMemory(_tempBuffer, e.Buffer, e.BufferLen);
-                    VFPSearch.Process(_tempBuffer, e.Width, e.Height, ImageHelper.GetStrideRGB24(e.Width), timestamp, ref _searchLiveOverlapData.Data);
+                    VFPSearch.Process(_tempBuffer, e.Width, e.Height, ImageHelper.GetStrideRGB24(e.Width), TimeSpan.FromMilliseconds(timestamp), ref _searchLiveOverlapData.Data);
                 }
                 else
                 {
@@ -763,6 +760,14 @@ namespace VisioForge_MMT
 
                 Settings.LastPath = Path.GetFullPath(dlg.FileNames[0]);
             }
+        }
+
+        private void ErrorCallback(string error)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                MessageBox.Show(this, error);
+            });
         }
     }
 }

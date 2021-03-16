@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VisioForge_MMT
+namespace VisioForge_MMT_Live
 {
     public static class Helper
     {

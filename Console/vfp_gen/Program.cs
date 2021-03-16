@@ -65,24 +65,23 @@ namespace vfpgen
 
             var time = DateTime.Now;
 
-            string error;
             var source = new VFPFingerprintSource(options.InputFile, engine);
             if (options.Duration > 0)
             {
-                source.StopTime = options.Duration;
+                source.StopTime = TimeSpan.FromMilliseconds(options.Duration);
             }
 
             VFPFingerPrint fp;
             if (options.Type == "search")
             {
-                fp = VFPAnalyzer.GetSearchFingerprintForVideoFile(source, out error);
+                fp = VFPAnalyzer.GetSearchFingerprintForVideoFile(source, ErrorCallback);
             }
             else
             {
-                fp = VFPAnalyzer.GetComparingFingerprintForVideoFile(source, out error);
+                fp = VFPAnalyzer.GetComparingFingerprintForVideoFile(source, ErrorCallback);
             }
 
-            if (fp == null || !string.IsNullOrEmpty(error))
+            if (fp == null)
             {
                 Console.WriteLine("Unable to get fingerprint.");
                 return;
@@ -91,7 +90,12 @@ namespace vfpgen
             var elapsed = DateTime.Now - time;
             Console.WriteLine("Analyze finished. Elapsed time: " + elapsed.ToString("g"));
 
-            fp.Save(options.OutputFile, false);
+            fp.Save(options.OutputFile);
+        }
+
+        private static void ErrorCallback(string error)
+        {
+            Console.WriteLine(error);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace VisioForge_MMT
+﻿namespace VisioForge_MMT_Live
 {
     using System.Collections.Generic;
     using System.IO;

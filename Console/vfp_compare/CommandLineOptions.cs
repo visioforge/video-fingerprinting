@@ -28,7 +28,7 @@ namespace vfp_compare
             var help = new HelpText
             {
                 Heading = new HeadingInfo("VisioForge Video Fingerprinting SDK signature compare tool (can compare one fingerprint with another).", "10.0"),
-                Copyright = new CopyrightInfo("VisioForge", 2017),
+                Copyright = new CopyrightInfo("VisioForge", 2006-2021),
                 AdditionalNewLineAfterOption = true,
                 AddDashesToOption = true
             };

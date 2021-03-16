@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VisioForge_MMT
+namespace VisioForge_MMT_Live
 {
     public class ResultsViewModel 
     {

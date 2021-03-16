@@ -6,7 +6,7 @@
                 DataContext="{Binding RelativeSource={RelativeSource Self}}"
 				Title="VisioForge Video Fingerprinting SDK - Media Monitoring Tool" Height="678.045" Width="1005" Icon="visioforge_main_icon.ico" Loaded="Window_Loaded" Unloaded="Window_Unloaded" Closing="Window_Closing">
     <Grid>
-       
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="421"/>
             <ColumnDefinition Width="*"/>
@@ -68,6 +68,15 @@
                     <Button x:Name="btIgnoredAreasRemoveItem" Content="Remove selected" HorizontalAlignment="Left" Margin="10,221,0,0" VerticalAlignment="Top" Width="115" Click="btIgnoredAreasRemoveItem_Click"/>
                     <Button x:Name="btIgnoredAreasRemoveAll" Content="Remove all" HorizontalAlignment="Left" Margin="130,221,0,0" VerticalAlignment="Top" Width="85" Click="btIgnoredAreasRemoveAll_Click"/>
                     <Label Content="Regenerate fingerprint files if ignored areas changed." HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="DB" Height="24" >
+                <Grid Background="Transparent">
+                    <Label x:Name="lbDBLocation" Content="DB location: " HorizontalAlignment="Left" Margin="59,0,0,7" VerticalAlignment="Bottom"/>
+                    <ListBox x:Name="lbDB" Margin="10,10,10,38"/>
+                    <Button x:Name="btDBClear" Content="Clear" HorizontalAlignment="Left" Margin="10,0,0,10" Width="44" Height="20" VerticalAlignment="Bottom" Click="btDBClear_Click"/>
+
+
                 </Grid>
             </TabItem>
         </TabControl>

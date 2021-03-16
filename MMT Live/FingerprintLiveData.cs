@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VisioForge.VideoFingerPrinting;
 
-namespace VisioForge_MMT
+namespace VisioForge_MMT_Live
 {
     public class FingerprintLiveData : IDisposable
     {
@@ -13,7 +13,7 @@ namespace VisioForge_MMT
 
         public DateTime StartTime { get; private set; }
 
-        public FingerprintLiveData(int duration, DateTime startTime)
+        public FingerprintLiveData(TimeSpan duration, DateTime startTime)
         {
             Data = new VFPSearchData(duration);
             StartTime = startTime;

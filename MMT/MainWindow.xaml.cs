@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MainWindow.xaml.cs" company="VisioForge">
-//   VisioForge (c) 2016.
+//   VisioForge (c) 2006-2021.
 // </copyright>
 // <summary>
 //   Interaction logic for MainWindow.xaml
@@ -29,9 +29,11 @@ namespace VisioForge_MMT
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow 
+    public partial class MainWindow
     {
-        private List<VFRect> _ignoredAreas;
+        private readonly List<VFRect> _ignoredAreas = new List<VFRect>();
+
+        private VFPFingerPrintDB _db;
 
         public MainWindow()
         {
@@ -41,9 +43,9 @@ namespace VisioForge_MMT
         private void btAddBroadcastFolder_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new System.Windows.Forms.FolderBrowserDialog
-                          {
-                              SelectedPath = Settings.LastPath
-                          };
+            {
+                SelectedPath = Settings.LastPath
+            };
 
             System.Windows.Forms.DialogResult result = dlg.ShowDialog(this.GetIWin32Window());
 
@@ -80,7 +82,12 @@ namespace VisioForge_MMT
             lbBroadcastFolders.Items.Clear();
         }
 
-        private void btStart_Click(object sender, RoutedEventArgs e)
+        private void errorDelegate(string error)
+        {
+            MessageBox.Show(error);
+        }
+
+        private async void btStart_Click(object sender, RoutedEventArgs e)
         {
             if (cbDebug.IsChecked == true)
             {
@@ -140,7 +147,7 @@ namespace VisioForge_MMT
                     broadcastList.Add(item);
                 }
             }
-            
+
             lbStatus.Content = "Step 2: Getting fingerprints for ads files";
 
             int progress = 0;
@@ -148,24 +155,30 @@ namespace VisioForge_MMT
             {
                 pbProgress.Value = progress;
 
-                string error;
-
                 var source = new VFPFingerprintSource(filename, engine);
                 foreach (var area in _ignoredAreas)
                 {
                     source.IgnoredAreas.Add(area);
                 }
 
-                var fp = VFPAnalyzer.GetSearchFingerprintForVideoFile(source, out error);
+                VFPFingerPrint fp = _db.GetFingerprint(source);
 
                 if (fp == null)
                 {
-                    MessageBox.Show("Unable to get fingerpring for video file: " + filename + ". Error: " + error);
+                    fp = await VFPAnalyzer.GetSearchFingerprintForVideoFileAsync(source, errorDelegate);
+
+                    if (fp == null)
+                    {
+                        MessageBox.Show("Unable to get fingerprint for the video file: " + filename);
+                    }
+                    else
+                    {
+                        _db.Items.Add(fp);
+                        AddDBItem(fp);
+                    }
                 }
-                else
-                {
-                    adVFPList.Add(fp);
-                }
+
+                adVFPList.Add(fp);
 
                 progress += 100 / adList.Count;
             }
@@ -178,29 +191,29 @@ namespace VisioForge_MMT
             {
                 pbProgress.Value = progress;
 
-                string error;
-
                 var source = new VFPFingerprintSource(filename, engine);
                 foreach (var area in _ignoredAreas)
                 {
                     source.IgnoredAreas.Add(area);
                 }
 
-                // source.CustomResolution = new System.Drawing.Size(640, 480);
-
-                //source.StopTime = 150000;
-                var fp = VFPAnalyzer.GetSearchFingerprintForVideoFile(source, out error);
-
-                //var fp = VFPAnalyzer.GetSearchFingerprintForVideoFile(filename, engine, 180000, 220000, out error);
-
+                VFPFingerPrint fp = _db.GetFingerprint(source);
                 if (fp == null)
                 {
-                    MessageBox.Show("Unable to get fingerpring for video file: " + filename + ". Error: " + error);
+                    fp = await VFPAnalyzer.GetSearchFingerprintForVideoFileAsync(source, errorDelegate);
+                    if (fp == null)
+                    {
+                        MessageBox.Show("Unable to get fingerprint for the video file: " + filename);
+                        return;
+                    }
+                    else
+                    {
+                        _db.Items.Add(fp);
+                        AddDBItem(fp);
+                    }
                 }
-                else
-                {
-                    broadcastVFPList.Add(fp);
-                }
+
+                broadcastVFPList.Add(fp);
 
                 progress += 100 / broadcastList.Count;
             }
@@ -216,24 +229,23 @@ namespace VisioForge_MMT
 
                 foreach (var ad in adVFPList)
                 {
-                    List<int> positions;
-                    bool found = VFPAnalyzer.Search(ad, broadcast, ad.Duration, (int)slDifference.Value, out positions, true);
+                   var positions = await VFPAnalyzer.SearchAsync(ad, broadcast, ad.Duration, (int)slDifference.Value, true);
 
-                    if (found)
+                    if (positions.Count > 0)
                     {
-                        foreach (int pos in positions)
+                        foreach (var pos in positions)
                         {
                             foundCount++;
-                            int minutes = pos / 60;
-                            int seconds = pos % 60;
+                            int minutes = (int)(pos.TotalSeconds / 60);
+                            int seconds = (int)(pos.TotalSeconds % 60);
 
                             results.Add(
                                 new ResultsViewModel()
-                                    {
-                                        Sample = ad.OriginalFilename,
-                                        DumpFile = broadcast.OriginalFilename,
-                                        Position = minutes + ":" + seconds
-                                    });
+                                {
+                                    Sample = ad.OriginalFilename,
+                                    DumpFile = broadcast.OriginalFilename,
+                                    Position = minutes + ":" + seconds
+                                });
                         }
                     }
                 }
@@ -284,9 +296,9 @@ namespace VisioForge_MMT
         private void btSaveResults_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new System.Windows.Forms.SaveFileDialog
-                          {
-                              Filter = @"XML file|*.xml|CSV file|*.csv"
-                          };
+            {
+                Filter = @"XML file|*.xml|CSV file|*.csv"
+            };
             System.Windows.Forms.DialogResult result = dlg.ShowDialog(this.GetIWin32Window());
 
             if (result == System.Windows.Forms.DialogResult.OK)
@@ -350,11 +362,47 @@ namespace VisioForge_MMT
             }
         }
 
+        private void AddDBItem(VFPFingerPrint fp)
+        {
+            var txt = $"{fp.OriginalFilename} [{fp.Width}x{fp.Height}, {fp.OriginalDuration.ToString("g")}]";
+            if (fp.IgnoredAreas.Count > 0)
+            {
+                txt += "(with ignored areas)";
+            }
+
+            lbDB.Items.Add(txt);
+        }
+
+        private void LoadDB()
+        {
+            var dbFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "mmt.db");
+            lbDBLocation.Content = $"DB file: {dbFile}";
+            if (File.Exists(dbFile))
+            {
+                _db = VFPFingerPrintDB.Load(dbFile);
+            }
+            else
+            {
+                _db = new VFPFingerPrintDB();
+            }
+
+            foreach (var item in _db.Items)
+            {
+                AddDBItem(item);
+            }
+        }
+
+        private void SaveDB()
+        {
+            var dbFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "mmt.db");
+            _db.Save(dbFile);
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _ignoredAreas = new List<VFRect>();
-
             LoadSettings();
+
+            LoadDB();
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
@@ -365,6 +413,8 @@ namespace VisioForge_MMT
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveSettings();
+
+            SaveDB();
         }
 
         private void slDifference_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -391,7 +441,7 @@ namespace VisioForge_MMT
                 {
                     lbBroadcastFolders.Items.Add(name);
                 }
-                
+
                 Settings.LastPath = Path.GetFullPath(dlg.FileNames[0]);
             }
         }
@@ -445,6 +495,12 @@ namespace VisioForge_MMT
         {
             lbIgnoredAreas.Items.Clear();
             _ignoredAreas.Clear();
+        }
+
+        private void btDBClear_Click(object sender, RoutedEventArgs e)
+        {
+            _db.Items.Clear();
+            lbDB.Items.Clear();
         }
     }
 }

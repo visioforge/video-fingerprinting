@@ -34,7 +34,7 @@ namespace vfpgen
             var help = new HelpText
             {
                 Heading = new HeadingInfo("VisioForge Video Fingerprinting SDK signatures generator", "10.0"),
-                Copyright = new CopyrightInfo("VisioForge", 2017),
+                Copyright = new CopyrightInfo("VisioForge", 2020),
                 AdditionalNewLineAfterOption = true,
                 AddDashesToOption = true
             };

@@ -159,10 +159,10 @@
                 {
                     var source = new VFPFingerprintSource(filename, engine)
                     {
-                        StopTime = indexingTime * 1000
+                        StopTime = TimeSpan.FromSeconds(indexingTime)
                     };
 
-                    fp = VFPAnalyzer.GetComparingFingerprintForVideoFile(source, out error);
+                    fp = VFPAnalyzer.GetComparingFingerprintForVideoFile(source, ErrorCallback);
                 }
                 catch (Exception ex)
                 {
@@ -219,7 +219,7 @@
                         continue;
                     }
 
-                    int diff = VFPAnalyzer.Compare(first, second, (int)slMaxShift.Value);
+                    int diff = VFPAnalyzer.Compare(first, second, TimeSpan.FromSeconds(slMaxShift.Value));
 
                     if (diff < slSensitivity.Value * 10)
                     {
@@ -357,6 +357,14 @@
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveSettings();
+        }
+
+        private void ErrorCallback(string error)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                edErrors.Text += error + Environment.NewLine;
+            });
         }
     }
 }

@@ -131,7 +131,7 @@ namespace vfp_gen_fragments
 
                     if (dataList[index] == null)
                     {
-                        dataList[index] = new VFPSearchData(options.Duration / 1000);
+                        dataList[index] = new VFPSearchData(TimeSpan.FromMilliseconds(options.Duration));
                     }
 
                     VFPSearch.Process(
@@ -139,7 +139,7 @@ namespace vfp_gen_fragments
                         e.Width,
                         e.Height,
                         ImageHelper.GetStrideRGB24(e.Width),
-                        timestamp,
+                        TimeSpan.FromMilliseconds(timestamp),
                         ref dataList[index]);
                 }
                 else
@@ -198,8 +198,8 @@ namespace vfp_gen_fragments
                         // ReSharper disable once ExceptionNotDocumented
                         Data = new byte[n],
                         OriginalFilename = options.InputFile,
-                        OriginalDuration = options.Duration,
-                        Duration = options.Duration,
+                        OriginalDuration = TimeSpan.FromMilliseconds(options.Duration),
+                        Duration = TimeSpan.FromMilliseconds(options.Duration),
                         ID = Guid.NewGuid(),
                         Width = sourceWidth,
                         Height = sourceHeight,
@@ -211,7 +211,7 @@ namespace vfp_gen_fragments
                     data.Free();
 
                     var newFilename = $"{options.InputFile}_segment{i}.vfsigx";
-                    fvp.Save(newFilename, false);
+                    fvp.Save(newFilename);
                 }
             }
             else

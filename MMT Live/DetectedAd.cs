@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VisioForge_MMT
+namespace VisioForge_MMT_Live
 {
     /// <summary>
     /// Detected ad.

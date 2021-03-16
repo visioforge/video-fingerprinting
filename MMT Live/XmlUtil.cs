@@ -1,4 +1,4 @@
-namespace VisioForge_MMT.Classes
+namespace VisioForge_MMT_Live
 {
     using System;
     using System.Collections;
@@ -7,14 +7,8 @@ namespace VisioForge_MMT.Classes
     using System.Xml;
     using System.Xml.Serialization;
 
-    /// <summary>
-    /// Helper класс для работы с XML
-    /// </summary>
     public class XmlUtility
     {
-        /// <summary>
-        /// Сериализует объект в строку XML
-        /// </summary>
         public static string Obj2XmlStr(object obj, string nameSpace)
         {
             if (obj == null) return string.Empty;
@@ -35,9 +29,6 @@ namespace VisioForge_MMT.Classes
             return sb.ToString();
         }
 
-        /// <summary>
-        /// Сериализует объект в строку XML
-        /// </summary>
         public static string Obj2XmlStr(object obj)
         {
             if (obj == null) return string.Empty;
@@ -54,12 +45,6 @@ namespace VisioForge_MMT.Classes
             return sb.ToString();
         }
 
-        /// <summary>
-        /// Десериализует строку XML в объект заданного типа
-        /// </summary>
-        /// <param name="xml"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
         public static T XmlStr2Obj<T>(string xml) 
         {
             if (xml == null) return default(T);
@@ -70,11 +55,6 @@ namespace VisioForge_MMT.Classes
             return (T)sr.Deserialize(reader);
         }
 		
-        /// <summary>
-        /// Преобразует строку XML в XmlElement
-        /// </summary>
-        /// <param name="xml"></param>
-        /// <returns></returns>
         public static  XmlElement XmlStr2XmlDom(string xml)
         {
             XmlDocument doc = new XmlDocument();
@@ -82,24 +62,12 @@ namespace VisioForge_MMT.Classes
             return doc.DocumentElement;
         }
 
-        /// <summary>
-        /// Преобразует объект в XmlElement
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="nameSpace"></param>
-        /// <returns></returns>
         public static  XmlElement Obj2XmlDom(object obj, string nameSpace)
         {
             return XmlStr2XmlDom(Obj2XmlStr(obj, nameSpace));
         }
-
-		
-		
     }
 
-    /// <summary>
-    /// Кэш для используемых сериалайзеров 
-    /// </summary>
     internal class SerializerCache
     {
         private static readonly Hashtable Hash = new Hashtable();
