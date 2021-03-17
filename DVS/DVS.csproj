@@ -52,6 +52,6 @@
     <Resource Include="visioforge_main_icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="VisioForge.DotNet.VideoFingerprinting.TRIAL" Version="12.1.3" />
+    <PackageReference Include="VisioForge.DotNet.VideoFingerprinting.TRIAL" Version="12.1.4" />
   </ItemGroup>
 </Project>
