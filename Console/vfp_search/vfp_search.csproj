@@ -45,7 +45,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="VisioForge.DotNet.VideoFingerprinting.TRIAL" Version="12.1.6" />
+    <PackageReference Include="VisioForge.DotNet.VideoFingerprinting.TRIAL" Version="12.1.7" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="visioforge_main_icon.ico" />
