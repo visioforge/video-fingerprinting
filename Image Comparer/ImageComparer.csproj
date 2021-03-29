@@ -43,7 +43,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="VisioForge.DotNet.VideoFingerprinting.TRIAL" Version="12.1.5" />
+    <PackageReference Include="VisioForge.DotNet.VideoFingerprinting.TRIAL" Version="12.1.6" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="visioforge_main_icon.ico" />
